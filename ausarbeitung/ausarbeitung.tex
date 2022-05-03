@@ -1,0 +1,659 @@
+%%% File-Information {{{
+%%% Filename: template_bericht.tex
+%%% Purpose: lab report, technical report, project report
+%%% Time-stamp: <2004-06-30 18:19:32 mp>
+%%% Authors: The LaTeX@TUG-Team [http://latex.tugraz.at/]:
+%%%          Karl Voit (vk), Michael Prokop (mp), Stefan Sollerer (ss)
+%%% History:
+%%%   20050914 (ss) correction of "backref=true" to "backref" due to hyperref documentation
+%%%   20040630 (mp) added comments to foldmethod at end of file
+%%%   20040625 (vk,ss) initial version
+%%%
+%%% Notes:
+%%%
+%%%
+%%%
+%%% }}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% main document {{{
+
+\documentclass[
+a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper, ...
+% landscape,   %% sets the orientation to landscape
+ twoside,     %% changes to a two-page-layout (alternatively: oneside)
+% twocolumn,   %% changes to a two-column-layout
+ headsepline, %% add a horizontal line below the column title
+% footsepline, %% add a horizontal line above the page footer
+% titlepage,   %% only the titlepage (using titlepage-environment) appears on the first page (alternatively: notitlepage)
+% parskip,     %% insert an empty line between two paragraphs (alternatively: halfparskip, ...)
+% leqno,       %% equation numbers left (instead of right)
+% fleqn,       %% equation left-justified (instead of centered)
+% tablecaptionabove, %% captions of tables are above the tables (alternatively: tablecaptionbelow)
+% draft,       %% produce only a draft version (mark lines that need manual edition and don't show graphics)
+% 10pt         %% set default font size to 10 point
+% 11pt         %% set default font size to 11 point
+12pt         %% set default font size to 12 point
+]{scrreprt}  %% article, see KOMA documentation (scrguide.dvi)
+
+
+% Alter some LaTeX defaults for better treatment of figures:
+% See p.105 of "TeX Unbound" for suggested values.
+% See pp. 199-200 of Lamport's "LaTeX" book for details.
+%   General parameters, for ALL pages:
+\renewcommand{\topfraction}{0.99}	% max fraction of floats at top
+\renewcommand{\bottomfraction}{0.99}	% max fraction of floats at bottom
+%   Parameters for TEXT pages (not float pages):
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{2}     % 2 may work better
+\setcounter{dbltopnumber}{2}    % for 2-column pages
+\renewcommand{\dbltopfraction}{0.99}	% fit big float above 2-col. text
+\renewcommand{\textfraction}{0.01}	% allow minimal text w. figs
+%   Parameters for FLOAT pages (not text pages):
+\renewcommand{\floatpagefraction}{0.8}	% require fuller float pages
+% N.B.: floatpagefraction MUST be less than topfraction !!
+\renewcommand{\dblfloatpagefraction}{0.8}	% require fuller float pages
+
+\setlength{\abovecaptionskip}{4pt plus 3pt minus 2pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% packages
+%%%
+
+%%%
+%%% encoding and language set
+%%%
+
+%%% ngerman: language set to new-german
+\usepackage{ngerman}
+
+%%% babel: language set (can cause some conflicts with package ngerman)
+%%%        use it only for multi-language documents or non-german ones
+%\usepackage[english]{babel}
+
+%%% inputenc: coding of german special characters
+\usepackage[latin1]{inputenc}
+
+%%% fontenc, ae, aecompl: coding of characters in PDF documents
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+%%%
+%%% technical packages
+%%%
+\usepackage[dvipsnames]{xcolor}
+
+%%% amsmath, amssymb, amstext: support for mathematics
+\usepackage{amsmath,amssymb,amstext}
+\usepackage[linesnumbered,vlined]{algorithm2e} 
+
+%%% psfrag: replace PostScript fonts
+\usepackage{psfrag}
+\usepackage{layouts}
+\usepackage{mathpazo}
+\usepackage[mathpazo]{flexisym}
+\usepackage{fp}
+
+%% Tikz packages
+\usepackage{tikz}
+
+\usepackage{breqn}
+\usepackage{afterpage,lscape}
+\usepackage[font=small]{caption}
+\usepackage{listings}
+%\usepackage[hmarginratio=1:1]{geometry}% equal left and right margins
+
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{lipsum}
+
+%%% listings: include programming code
+
+\newcommand\YAMLcolonstyle{\color{red}\mdseries}
+\newcommand\YAMLkeystyle{\color{black}\bfseries}
+\newcommand\YAMLvaluestyle{\color{blue}\mdseries}
+
+\makeatletter
+
+% here is a macro expanding to the name of the language
+% (handy if you decide to change it further down the road)
+\newcommand\language@yaml{yaml}
+
+\expandafter\expandafter\expandafter\lstdefinelanguage
+\expandafter{\language@yaml}
+{
+  keywords={true,false,null,y,n},
+  keywordstyle=\color{darkgray}\bfseries,
+  basicstyle=\YAMLkeystyle,                                 % assuming a key comes first
+  sensitive=false,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\YAMLvaluestyle\ttfamily,
+  moredelim=[l][\color{orange}]{\&},
+  moredelim=[l][\color{magenta}]{*},
+  moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},   % switch to value style at :
+  morestring=[b]',
+  morestring=[b]",
+  literate =    {---}{{\ProcessThreeDashes}}3
+                {>}{{\textcolor{red}\textgreater}}1     
+                {|}{{\textcolor{red}\textbar}}1 
+                {\ -\ }{{\mdseries\ -\ }}3,
+}
+
+% switch to key style at EOL
+\lst@AddToHook{EveryLine}{\ifx\lst@language\language@yaml\YAMLkeystyle\fi}
+\makeatother
+
+\newcommand\ProcessThreeDashes{\llap{\color{cyan}\mdseries-{-}-}}
+
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  otherkeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+%%% units: technical units
+%\usepackage{units}
+
+\usepackage[section]{placeins}
+
+\makeatletter
+\AtBeginDocument{%
+  \expandafter\renewcommand\expandafter\subsection\expandafter{%
+    \expandafter\@fb@secFB\subsection
+  }%
+}
+\makeatother
+
+%%%
+%%% layout
+%%%
+
+%%% scrlayer-scrpage: KOMA heading and footer
+%%% Note: if you don't use this package, please remove 
+%%%       \pagestyle{scrheadings} and corresponding settings
+%%%       below too.
+\usepackage[automark]{scrlayer-scrpage}
+
+
+%%%
+%%% PDF
+%%%
+
+\usepackage{ifpdf}
+
+%\usepackage{draftwatermark}
+
+%%% Should be LAST usepackage-call!
+%%% For docu on that, see reference on package ``hyperref''
+\ifpdf%   (definitions for using pdflatex instead of latex)
+
+  \pdfcompresslevel=9
+
+  %%% hyperref (hyperlinks in PDF): for more options or more detailed
+  %%%          explanations, see the documentation of the hyperref-package
+  \usepackage[%
+    %%% general options
+    pdftex=true,      %% sets up hyperref for use with the pdftex program
+    %plainpages=false, %% set it to false, if pdflatex complains: ``destination with same identifier already exists''
+    %
+    %%% extension options
+    backref,      %% adds a backlink text to the end of each document in the bibliography
+    pagebackref=false, %% if true, creates backward references as a list of page numbers in the bibliography
+    colorlinks=false,   %% turn on colored links (true is better for on-screen reading, false is better for printout versions)
+    %
+    %%% PDF-specific display options
+    bookmarks=true,          %% if true, generate PDF bookmarks (requires two passes of pdflatex)
+    bookmarksopen=false,     %% if true, show all PDF bookmarks expanded
+    bookmarksnumbered=false, %% if true, add the section numbers to the bookmarks
+    %pdfstartpage={1},        %% determines, on which page the PDF file is opened
+    pdfpagemode=None         %% None, UseOutlines (=show bookmarks), UseThumbs (show thumbnails), FullScreen
+  ]{hyperref}
+
+
+  %%% provide all graphics (also) in this format, so you don't have
+  %%% to add the file extensions to the \includegraphics-command
+  %%% and/or you don't have to distinguish between generating
+  %%% dvi/ps (through latex) and pdf (through pdflatex)
+  \DeclareGraphicsExtensions{.pdf}
+
+\else %else   (definitions for using latex instead of pdflatex)
+
+  %\usepackage[dvips]{graphicx}
+
+  \DeclareGraphicsExtensions{.eps}
+
+  \usepackage[%
+    dvips,           %% sets up hyperref for use with the dvips driver
+    colorlinks=false %% better for printout version; almost every hyperref-extension is eliminated by using dvips
+  ]{hyperref}
+
+\fi
+
+
+%%% sets the PDF-Information options
+%%% (see fields in Acrobat Reader: ``File -> Document properties -> Summary'')
+%%% Note: this method is better than as options of the hyperref-package (options are expanded correctly)
+\hypersetup{
+  pdftitle={}, %%
+  pdfauthor={}, %%
+  pdfsubject={}, %%
+  pdfcreator={Accomplished with LaTeX2e and pdfLaTeX with hyperref-package.}, %% 
+  pdfproducer={}, %%
+  pdfkeywords={} %%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% user defined commands
+%%%
+%%%%%% Color for Section %%%%%%%%%%
+\usepackage{sectsty}
+\allsectionsfont{\color{orange!90!black}\itshape}
+\sectionfont{\color{orange!90!black}\itshape\selectfont}
+\subsectionfont{\color{orange!90!black}\itshape\selectfont}
+
+%%% \mygraphics{}{}{}
+%% usage:   \mygraphics{width}{filename_without_extension}{caption}
+%% example: \mygraphics{0.7\textwidth}{rolling_grandma}{This is my grandmother on inlinescates}
+%% requires: package graphicx
+%% provides: including centered pictures/graphics with a boldfaced caption below
+%% 
+\newcommand{\mygraphics}[3]{
+  \begin{center}
+    \includegraphics[width=#1, keepaspectratio=true]{#2} \\
+    \textbf{#3}
+  \end{center}
+}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\myauthor#1{\def\MyAuthor{#1}}
+\def\mythema#1{\def\MyThema{#1}}
+\def\debug#1{\def\Debug{#1}}
+\def\mybetreuer#1{\def\MyBetreuer{#1}}
+\def\myfachbereich#1{\def\MyFachbereich{#1}}
+
+%% Definieren der Arbeitsdaten Titel und Autor
+%%  #1: Autorenname
+%%  #2: Thema der Arbeit
+\newcommand{\mywork}[2]{%
+  \myauthor{#1}\mythema{#2}%
+}
+
+\newcommand{\mydiplomtitle}[1]{
+  \mytitle{Diplomarbeit}{#1}
+}
+
+\newcommand{\mymastertitle}[1]{
+  \mytitle{Masterarbeit}{#1}
+}
+
+\newcommand{\mybachelortitle}[1]{
+  \mytitle{Bachelorarbeit}{#1}
+}
+
+%% Erzeugt ein passendes Titelblatt fÃ¼r die Projektarbeit
+\newcommand\HRule{\rule{\textwidth}{1pt}}
+%%  #1 Titel des Seminars
+%%  #2 Name des Betreuers
+\newcommand{\myprojectworktitle}[1]{
+  %\thispagestyle{fancy}
+  %\chead{\large Fachhochschule Dortmund \normalsize}
+  %\cfoot{\rule{\textwidth}{0.1pt}}
+  %\null\vfil
+  \begin{figure}[h]
+    \includegraphics[width=0.35\textwidth]{figures/FH-Dortmund-logo.pdf}
+  \end{figure}
+%% anstelle der folgenden Zeile, um das FH-Logo mit einzufï¿½gen:
+  \vskip 5.5cm
+  \begin{center}%
+    {\large \textbf{Ausarbeitung} \par}
+    \vskip 1cm
+    {\textbf{\HRule \\[0.4cm] {\Large\MyThema} \HRule \\[0.4cm]} \par}
+    \vskip 1cm
+    {\large \textbf{im Rahmen der} \\ #1 \par}
+    \vskip 1cm
+    {\Large \MyAuthor \par}
+  \end{center}
+  \vspace*{\stretch{1}}
+  \ifthenelse{\equal{\MyBetreuer}{}}{}{Betreuer: \textit{\MyBetreuer} \\[0.5em]}
+  \ifthenelse{\equal{\MyFachbereich}{}}{}{Fachbereich: \textit{\MyFachbereich} \\}
+  \vfil\null
+  \newpage
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%  own definitions
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newlength{\TOarg} \newlength{\TOunit}
+{\catcode`p=12 \catcode`t=12 \gdef\TOnum#1pt{#1}}
+\newcommand\TOop[2]{\setlength{\TOarg}{#2}%
+   \FPdiv\TOres{\expandafter\TOnum\the\TOarg}{\expandafter\TOnum\the\TOunit}%
+   \FPround\TOres\TOres{#1}}
+\newcommand{\TOspace}{\ }
+\newcommand\TOpt[2][2]{\setlength{\TOunit}{1pt}\TOop{#1}{#2}\TOres\TOspace pt}
+\newcommand\TOin[2][2]{\setlength{\TOunit}{1in}\TOop{#1}{#2}\TOres\TOspace in}
+\newcommand\TOcm[2][2]{\setlength{\TOunit}{1cm}\TOop{#1}{#2}\TOres\TOspace cm}
+\newcommand\TOmm[2][2]{\setlength{\TOunit}{1mm}\TOop{#1}{#2}\TOres\TOspace mm}
+\newcommand\TOem[2][2]{\setlength{\TOunit}{1em}\TOop{#1}{#2}\TOres\TOspace em}
+
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\usepackage{amsthm}
+
+\makeatletter
+\newtheorem*{rep@theorem}{\rep@title}
+\newcommand{\newreptheorem}[2]{%
+\newenvironment{rep#1}[1]{%
+ \def\rep@title{#2 \ref{##1}}%
+ \begin{rep@theorem}}%
+ {\end{rep@theorem}}}
+\makeatother
+
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
+\newtheorem{assumption}{Assumption}[chapter]
+\renewcommand\theassumption{\Roman{assumption}}
+\numberwithin{assumption}{chapter} 
+
+\newtheorem{subquestion}{Subquestion}[chapter]
+\renewcommand\thesubquestion{\Roman{subquestion}}
+\numberwithin{subquestion}{chapter} 
+
+\newtheorem{question}{Question}[chapter]
+\renewcommand\thequestion{\Roman{question}}
+\numberwithin{question}{chapter} 
+\newreptheorem{question}{Question}
+\newtheorem{hypothesis}{Hypothesis}[chapter]
+\renewcommand\thehypothesis{\Roman{hypothesis}}
+\numberwithin{hypothesis}{chapter}
+
+\newreptheorem{hypothesis}{Hypothesis}
+
+\SetKwInput{KwStart}{Given}
+\SetKwInput{KwInit}{Initialization}
+\SetKwInput{KwBegin}{Begin}
+\SetKwInput{KwEnd}{End}
+
+%% Diese Zeile unbedingt stehen lassen und anpassen - sie enthÃ¯Â¿Â½lt Autor und Titel der Ausarbeitung
+\mywork{Timo Grautstück}{Werkzeuge für die Algorithmenimplementierung auf Quantencomputern}
+\mybetreuer{Prof. Dr.-Ing. Ulf Niemeyer}
+\myfachbereich{Informations- und Kommunikationtechnik}
+\debug{false}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% set heading and footer
+%%%
+
+%%% scrheadings default: 
+%%%      footer - middle: page number
+\pagestyle{scrheadings}
+
+%%% user specific
+%%% usage:
+%%% \position[heading/footer for the titlepage]{heading/footer for the rest of the document}
+
+%%% heading - left
+% \ihead[]{}
+
+%%% heading - center
+% \chead[]{}
+
+%%% heading - right
+% \ohead[]{}
+
+%%% footer - left
+% \ifoot[]{}
+
+%%% footer - center
+% \cfoot[]{}
+
+%%% footer - right
+% \ofoot[]{}
+
+\oddsidemargin 1cm
+\evensidemargin 1cm
+\textwidth 15cm
+\topmargin -1.25cm
+\textheight 22.87cm
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin document
+%%%
+
+\hyphenation{hy-phe-nation}
+\begin{document}
+
+\pagenumbering{gobble}
+\thispagestyle{empty}
+\myprojectworktitle{Projektarbeit-II}
+    %\mymastertitle{Masterarbeit}
+ %\pagenumbering{roman} %% small roman page numbers
+
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
+%%% start a new page and display the table of contents
+
+\vspace{4cm}
+\subsubsection{Abstract}
+\input{sections/abstract.tex}
+%he width of this document is \TOin[0]{\textwidth}, that is, \TOcm{\textwidth}, whereas the height is \TOin[3]{\textheight}, i.e., \TOin{\textheight}. Here we have some equivalences between different units:
+
+%%% start a new page and display the table of contents
+
+%he width of this document is \TOin[0]{\textwidth}, that is, \TOcm{\textwidth}, whereas the height is \TOin[3]{\textheight}, i.e., \TOin{\textheight}. Here we have some equivalences between different units:
+
+
+%\clearpage
+
+\pagenumbering{roman} %% small roman page numbers
+ 
+\tableofcontents
+
+
+%%% start a new page and display the list of tables
+ %\newpage
+ %\listoftables
+
+%%% display the main document on a new page 
+ \newpage
+
+ \pagenumbering{arabic} %% normal page numbers (include it, if roman was used above)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin main document
+%%% structure: \section \subsection \subsubsection \paragraph \subparagraph
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter{Einleitung}
+\label{introduction}
+\lipsum[5]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Grundlagen Quantencomputer}
+\section{Quantenbits}
+\input{sections/qubits.tex}
+
+\section{Multiple Quantenbits und Quantenregister}
+\input{sections/multiqubits.tex}
+
+\section{Quantenschaltungen}
+\input{sections/quantenschaltungen.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Programmierung von Quantencomputer}
+\lipsum[1-4]
+\section{Software und Programmiersprachen}
+\lipsum[1-4]
+
+\section{Simualtion}
+\input{sections/simulation.tex}
+
+\section{Verfügbare Hardware}
+\lipsum[1-4]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Implementierung von Quantenalgorithmen}
+
+\lipsum[1-4]
+
+\section{Algorithmenüberblick}
+\lipsum[1-4]
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Shors Algorithmus}
+\label{methods}
+
+\lipsum[1-10]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Umsetzung}
+\label{algorithms}
+
+\section{Ergebnisse}
+\lipsum[1-10]
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Fazit}
+\label{conclusions}
+
+\lipsum[1-10]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Zukünftige Arbeiten}
+
+\lipsum[1-10]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Zusammenfassung}
+
+\lipsum[1-10]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%
+%%% end main document
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix  %% include it, if something (bibliography, index, ...) follows below
+
+
+\chapter{Anhang}
+
+\lipsum[2]
+
+
+%\afterpage{\blankpage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% bibliography
+%%%
+%%% available styles: abbrv, acm, alpha, apalike, ieeetr, plain, siam, unsrt
+%%%
+\bibliographystyle{ieeetr}
+
+%%% name of the bibliography file without .bib
+%%% e.g.: literatur.bib -> \bibliography{literatur}
+\bibliography{literature.bib}
+
+\end{document}
+%%% }}}
+%%% END OF FILE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Notice!
+%%% This file uses the outline-mode of emacs and the foldmethod of Vim.
+%%% Press 'zi' to unfold the file in Vim.
+%%% See ':help folding' for more information.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Local Variables:
+%% mode: outline-minor
+%% OPToutline-regexp: "%% .*"
+%% OPTeval: (hide-body)
+%% emerge-set-combine-versions-template: "%a\n%b\n"
+%% End:
+%% vim:foldmethod=marker

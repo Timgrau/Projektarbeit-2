@@ -1,0 +1,30 @@
+Um Algorithmen oder aufwendige Berechnungen auf Quantencomputern auszuf\"uhren wird mehr als nur ein Qubit bzw. ein Bit an Information ben\"ontigt. Daher ist es wichtig zu verstehen, wie einzelne Qubits miteinander Interagieren, sich zusammenf\"ugen lassen und durch Vektoren beschrieben werden. \\
+
+Das Kronecker-Produkt wird genutzt um Qubits Zusammenzuf\"uhren, bzw. deren kollektiven Zustand zu bilden. \ref{kollektiver-Zustand} zeigt zwei m\"ogliche kollektive Zust\"ande der Basiszust\"ande aus \ref{first}.
+\begin{equation}\label{kollektiver-Zustand}
+\begin{aligned}
+  |0\rangle\otimes |1\rangle = |01\rangle = \begin{bmatrix}1 \times \begin{bmatrix} 0\\1\end{bmatrix}\\[1em] 0 \times \begin{bmatrix} 0\\1\end{bmatrix}\end{bmatrix} = \begin{bmatrix} 0 \\ 1 \\ 0 \\ 0\end{bmatrix} \\[1em]
+  |0\rangle\otimes |0\rangle = |00\rangle = \begin{bmatrix}1 \times \begin{bmatrix} 1\\0\end{bmatrix}\\[1em] 0 \times \begin{bmatrix} 1\\0\end{bmatrix}\end{bmatrix} = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0\end{bmatrix}
+\end{aligned}
+\end{equation}
+Somit lassen sich alle vier Basiszust\"ande, von zwei Qubits aus den zwei Basiszust\"anden von einem Qubit durch das Kronecker-Produkt bilden.
+Man gehe davon aus, dass Zust\"ande von mehreren Qubits sich also genau wie Zust\"ande von einzelnen Qubits beschreiben lassen. $n$ Qubits besitzen $2^n$ Amplituden, d.h. diese wachsen exponentiell mit der genutzten Anzahl an Qubits.
+\begin{equation}\label{two-qubits}
+|\psi \rangle = \alpha_{00} |00\rangle + \alpha_{01} |01\rangle + \alpha_{10} |10\rangle + \alpha_{11} |11\rangle = \begin{bmatrix} \alpha_{00} \\ \alpha_{01} \\ \alpha_{10} \\ \alpha_{11} \end{bmatrix}
+\end{equation}
+Eine allgemeine Darstellung eines Zustands von zwei Qubits zeigt \ref{two-qubits}, ein 4-Dimensionaler Vektor mit den jeweiligen Amplituden. Auch das quadrieren dieser Ampltiuden zeigt, mit welcher Wahrscheinlichkeit eines der 4 Ergebnisse 00, 01, 10, 11 nach der Messung dieses Zustands erhalten wird.
+Das hei\ss t auch dieser Zustand muss durch seine Ampltiuden normalisiert sein, also muss z.B. f\"ur den Zustandsvektor aus \ref{two-qubits} gelten
+\begin{equation}
+|\alpha_{00}|^2+|\alpha_{01}|^2+|\alpha_{10}|^2+|\alpha_{11}|^2 = 1 .
+\end{equation}
+Ebenso werden diese Zust\"ande wie in \ref{messung} dargestellt gemessen um z.B. die Wahrscheinlichkeit zu erfahren, das sich der Zustand $|\psi \rangle$ in Zustand $|11\rangle$ befindet wird folgende Messung durchgef\"uhrt.
+\begin{equation}
+p(|11\rangle) = |\langle 11| \psi  \rangle|^2 = |\alpha_{11}|^2
+\end{equation}
+Ebenso k\"onnen auch Messungen, nach den Basisvektoren $|0 \rangle$ und $| 1\rangle$ durchgef\"uhrt werden.
+\\
+Oft werden Zusammensetzungen aus einzelnen Qubits auch Quantenregister genannt, eine allgemeine und kompakte Form dieser Quantenregister aus \cite{Homeister-2022}, sieht folgenderma\ss en aus
+\begin{equation}
+R = \sum\limits_{i=0}^{2^{n}-1} \alpha_i |i\rangle
+\end{equation}
+Somit entspricht $|0\rangle, |1\rangle, \dots, |2^{n}-1\rangle$ den Zust\"anden $|0\dots 0\rangle, |0\dots 1\rangle, \dots, |1\dots 1\rangle$.

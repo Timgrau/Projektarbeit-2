@@ -1,0 +1,38 @@
+Um Informationen bzw. Bits zu manipulieren werden Schaltungen ben\"otigt welche Gatter beinhalten, dies gilt f\"ur klassische Rechner und Quantencomputer. Um in der Digitaltechnik die Funktionsweise von Gattern darzustellen werden gerne Wahrheitstabellen genutzt \ref{}. Bekannte Gatter-Typen aus der Digitaltechnik, wie der Negation oder dem Exklusiv-ODER k\"onnen auch in der Welt der Quantencomputer abgebildet werden. Jedoch ist der Aufbau dieser Gatter etwas gew\"ohnungsbed\"urfdig, denn die Realisierung dieser Gatter erfolgt durch unit\"are Matrizen. Die Anwendung eines Gatters auf einen Zustandvektor entspricht mathematisch also einer unit\"are Transformation auf den Zustandsvektor und f\"uhrt eine rotation auf der Bloch-Kugel aus. Dies geschieht durch die Bildung des Skalarprodukts \"uber der unit\"aren Matrix und dem Zustandvektor \ref{}. \\ \\
+Eine Matrix wird als unit\"ar bezeichnet, wenn das Produkt aus dieser Matrix und dessen adjungierte Matrix eine Einhaltsmatrix bildet.
+\begin{equation}
+  I = A^{\dagger} A
+\end{equation}
+Die Adjungierte Matrix wird gebildet, indem alle Eintr\"age in dieser Matrix komplex konjungiert und transponiert werden.
+\begin{equation}
+  A^{\dagger} = A^{*T}
+\end{equation}
+Somit sind alle Quantengatter unit\"are Matrizen, genau wie die drei aus der Quantenmechnik bekannten Paulimatrizen $X, Y, Z$ \ref{pauli-gates}.
+
+\begin{tabular}{ccc}
+Matrix & Schaltung & Wahrheitstabelle \\
+\hline
+\end{tabular}
+
+\begin{equation}\label{gates}
+\begin{aligned}
+X &=
+  \begin{bmatrix}
+  0 & 1 \\
+  1 & 0
+  \end{bmatrix}\hspace{1.2cm}
+  \vspace{1cm}
+  \includegraphics[width=0.2\textwidth]{figures/pauli_x.pdf} \\[1em]
+Y &= \begin{bmatrix}
+  0 & -i \\
+  i & 0
+  \end{bmatrix}\hspace{1cm}
+  \includegraphics[width=0.2\textwidth]{figures/pauli_y.pdf}\\[1em]
+Z &= \begin{bmatrix}
+  1 & 0 \\
+  0 & -1
+  \end{bmatrix}\hspace{1cm}
+  \includegraphics[width=0.2\textwidth]{figures/pauli_z.pdf}
+  \end{aligned}
+\end{equation}
+%%

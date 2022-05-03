@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+#
+
+output_dir="/output"
+full_path=$(pwd)$output_dir
+
+if [[ ! -d $full_path ]]
+then
+    echo "creating output directory"
+    mkdir $full_path
+else
+    echo "output directory does exist, continuing"
+fi
+   
+if [[ $1 == *.qasm ]]
+then
+    file_name=$(echo $1 | sed "s/.qasm//")
+    python2 qasm2tex.py $1 >> $full_path/$file_name.tex
+    latex -output-directory=$full_path $full_path/$file_name.tex 
+    dvips -D2400 -E -o $full_path/$file_name.eps $full_path/$file_name
+    epstopdf $full_path/$file_name.eps
+else
+    echo "Input File need to be a .qasm file, cant convert to pdf"
+fi
+
