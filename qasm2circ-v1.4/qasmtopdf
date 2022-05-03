@@ -1,6 +1,6 @@
 #!/bin/bash
-#
-#
+# Date: 03-05-22
+# Author: T. Grautstück
 
 output_dir="/output"
 full_path=$(pwd)$output_dir
