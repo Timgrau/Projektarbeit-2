@@ -1,11 +1,10 @@
 # 
-# File:   pauli_x.qasm
+# File:   phase.qasm
 # Date:   03-05-22
 # Author: T. Grautstück
 #
-# Pauli X-Gate
+# phase-gate
 #
         qubit 	q
   
-	X	q
-
+	S	q

@@ -1,11 +1,11 @@
 # 
-# File:   pauli_x.qasm
+# File:   pauli_y.qasm
 # Date:   03-05-22
 # Author: T. Grautstück
 #
 # Pauli Y-Gate
 #
-        qubit 	q0
+        qubit 	q
   
-	Y	q0
+	Y	q
 

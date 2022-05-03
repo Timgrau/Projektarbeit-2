@@ -7,32 +7,91 @@ Die Adjungierte Matrix wird gebildet, indem alle Eintr\"age in dieser Matrix kom
 \begin{equation}
   A^{\dagger} = A^{*T}
 \end{equation}
-Somit sind alle Quantengatter unit\"are Matrizen, genau wie die drei aus der Quantenmechnik bekannten Paulimatrizen $X, Y, Z$ \ref{pauli-gates}.
+Somit sind alle Quantengatter unit\"are Matrizen, genau wie die drei aus der Quantenmechnik bekannten Paulimatrizen $X, Y, Z$ \ref{tab:Qubit-Gatter}.
 
-\begin{tabular}{ccc}
-Matrix & Schaltung & Wahrheitstabelle \\
+%%%%%%%%%%%%%%%%%%%%%%%Table%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[h] \label{tab:Qubit-Gatter}
+\begin{tabular}{@{\hspace{1cm}}c@{\hspace{1cm}} | @{\hspace{1cm}}c@{\hspace{1cm}} | @{\hspace{1cm}}c@{\hspace{1cm}}}
+\hline 
+Matrix & Schaltungssymbol & Wahrheitstabelle \\
+\hline & \\
+$X = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}$ &
+\includegraphics[width=0.2\textwidth]{figures/pauli_x.pdf} &
+\begin{tabular}{|c||c||c|}
+\hline
+Fall & $|q\rangle$ & $X|q\rangle$ \\
+\hline \hline 
+1 & $|0\rangle$ & $|1\rangle$ \\
+2 & $|1\rangle$ & $|0\rangle$ \\
+\hline
+\end{tabular} \\&\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$Y = \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix}$ &
+\includegraphics[width=0.2\textwidth]{figures/pauli_y.pdf} &
+\begin{tabular}{|c||c||c|}
+\hline
+Fall & $|q\rangle$ & $Y|q\rangle$ \\
+\hline \hline 
+1 & $|0\rangle$ & $i|1\rangle$ \\
+2 & $|1\rangle$ & $-i|0\rangle$ \\
+\hline
+\end{tabular} \\&\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$Z = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}$ &
+\includegraphics[width=0.2\textwidth]{figures/pauli_z.pdf} &
+\begin{tabular}{|c||c||c|}
+\hline
+Fall & $|q\rangle$ & $Z|q\rangle$ \\
+\hline \hline 
+1 & $|0\rangle$ & $|0\rangle$ \\
+2 & $|1\rangle$ & $-|1\rangle$ \\
+\hline
+\end{tabular} \\&\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$H = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ &
+\includegraphics[width=0.2\textwidth]{figures/hadamard.pdf} &
+\begin{tabular}{|c||c||c|}
+\hline
+Fall & $|q\rangle$ & $H|q\rangle$ \\
+\hline \hline 
+1 & $|0\rangle$ & $\frac{|0\rangle+|0\rangle}{\sqrt{2}}$ \\
+2 & $|1\rangle$ & $\frac{|0\rangle-|1\rangle}{\sqrt{2}}$ \\
+\hline
+\end{tabular} \\&\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$S = \begin{bmatrix} 1 & 0 \\ 0 & i \end{bmatrix}$ &
+\includegraphics[width=0.2\textwidth]{figures/phase.pdf} &
+\begin{tabular}{|c||c||c|}
+\hline
+Fall & $|q\rangle$ & $S|q\rangle$ \\
+\hline \hline 
+1 & $|0\rangle$ & $|0\rangle$ \\
+2 & $|1\rangle$ & $i|1\rangle$ \\
+\hline
+\end{tabular} \\&\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$T = \begin{bmatrix} 1 & 0 \\ 0 & e^{i\frac{\pi}{4}} \end{bmatrix}$ &
+\includegraphics[width=0.2\textwidth]{figures/t_dagger.pdf} &
+\begin{tabular}{|c||c||c|}
+\hline
+Fall & $|q\rangle$ & $T|q\rangle$ \\
+\hline \hline 
+1 & $|0\rangle$ & $|0\rangle$ \\
+2 & $|1\rangle$ & $e^{i\frac{\pi}{4}} |1\rangle$ \\
+\hline
+\end{tabular} \\&\\
 \hline
 \end{tabular}
-
-\begin{equation}\label{gates}
-\begin{aligned}
-X &=
-  \begin{bmatrix}
-  0 & 1 \\
-  1 & 0
-  \end{bmatrix}\hspace{1.2cm}
-  \vspace{1cm}
-  \includegraphics[width=0.2\textwidth]{figures/pauli_x.pdf} \\[1em]
-Y &= \begin{bmatrix}
-  0 & -i \\
-  i & 0
-  \end{bmatrix}\hspace{1cm}
-  \includegraphics[width=0.2\textwidth]{figures/pauli_y.pdf}\\[1em]
-Z &= \begin{bmatrix}
-  1 & 0 \\
-  0 & -1
-  \end{bmatrix}\hspace{1cm}
-  \includegraphics[width=0.2\textwidth]{figures/pauli_z.pdf}
-  \end{aligned}
-\end{equation}
-%%
+\caption{Grundlegende 1-Qubit Gatter}
+\end{table}

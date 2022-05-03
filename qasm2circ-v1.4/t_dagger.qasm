@@ -1,11 +1,10 @@
 # 
-# File:   pauli_x.qasm
+# File:   t_dagger.qasm
 # Date:   03-05-22
 # Author: T. Grautstück
 #
-# Pauli X-Gate
+# T-dagger
 #
         qubit 	q
   
-	X	q
-
+	T	q

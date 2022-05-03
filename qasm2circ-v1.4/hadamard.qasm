@@ -1,11 +1,10 @@
 # 
-# File:   pauli_x.qasm
+# File:   hadamard.qasm
 # Date:   03-05-22
 # Author: T. Grautstück
 #
-# Pauli X-Gate
+# hadamard-gate
 #
         qubit 	q
   
-	X	q
-
+	H	q
