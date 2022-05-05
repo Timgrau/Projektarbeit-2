@@ -8,7 +8,7 @@ Die Adjungierte Matrix wird gebildet, indem alle Eintr\"age in dieser Matrix kom
   A^{\dagger} = A^{*T}
 \end{equation}
 
-Somit sind alle Quantengatter unit\"are Matrizen, genau wie die drei aus der Quantenmechnik bekannten Paulimatrizen $X, Y$ und $Z$ Tabelle \ref{table:Qubit-Gatter}. Diese f\"uhren eine Rotation von $\pi$ um die $x, y$ und $z$-Achse auf der Bloch-Kugel durch. Das Hadamard-Gatter $H$ erm\"oglicht einen Abweichung der Basiszust\"ande $|0\rangle$ und $|1\rangle$ und erzeugt somit Superpositionen dieser \cite{Qiskit-Textbook}.
+Somit sind alle Quantengatter unit\"are Matrizen, genau wie die drei aus der Quantenmechnik bekannten Paulimatrizen $X, Y$ und $Z$ Tabelle \ref{table:Qubit-Gatter}. Diese f\"uhren eine Rotation von $\pi$ um die $x, y$ und $z$-Achse auf der Bloch-Kugel durch. Das Hadamard-Gatter $H$ erm\"oglicht eine Abweichung der Basiszust\"ande $|0\rangle$ und $|1\rangle$ und erlaubt eine Superposition dieser Zust\"ande \cite{Qiskit-Textbook}.
 Dies w\"aren die Zustandvektoren $|+\rangle$ und $|-\rangle$, welche auch auf der Bloch-Kugel in Abbildung \ref{fig:Bloch-Kugel} zu erkennen sind. \\ \\
 Zwei parametrisierte Gatter, das $P$-Gatter (Phasen-Gatter) und $U$-Gatter die nicht in Tabelle \ref{table:Qubit-Gatter} aufgef\"uhrt sind, erlauben die Spezifizierung von s\"amtlichen Gattern bzw. unedlich vielen Gattern.
 \begin{equation}
@@ -24,12 +24,12 @@ e^{i\phi}sin\left(\frac{\theta}{2}\right) & e^{i(\phi+\lambda)}sin\left(\frac{\t
 %%%%%%%%%%%%%%%%%%%%%%%Table%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[h] 
-\begin{tabular}{@{\hspace{1cm}}c@{\hspace{1cm}} | @{\hspace{1cm}}c@{\hspace{1cm}} | @{\hspace{1cm}}c@{\hspace{1cm}}}
+\begin{tabular}{@{\hspace{0.7cm}}c@{\hspace{0.7cm}} | @{\hspace{0.7cm}}c@{\hspace{0.7cm}} | @{\hspace{0.8cm}}c@{\hspace{0.7cm}}}
 \hline 
 Matrix & Schaltungssymbol & Wahrheitstabelle \\
 \hline & \\
 $X = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}$ &
-\includegraphics[width=0.2\textwidth]{figures/pauli_x.pdf} &
+\raisebox{-.3\height}{\includegraphics[width=0.2\textwidth]{figures/pauli_x.pdf}} &
 \begin{tabular}{|c||c||c|}
 \hline
 Fall & $|q\rangle$ & $X|q\rangle$ \\
@@ -42,7 +42,7 @@ Fall & $|q\rangle$ & $X|q\rangle$ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 $Y = \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix}$ &
-\includegraphics[width=0.2\textwidth]{figures/pauli_y.pdf} &
+\raisebox{-.3\height}{\includegraphics[width=0.2\textwidth]{figures/pauli_y.pdf}} &
 \begin{tabular}{|c||c||c|}
 \hline
 Fall & $|q\rangle$ & $Y|q\rangle$ \\
@@ -55,7 +55,7 @@ Fall & $|q\rangle$ & $Y|q\rangle$ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 $Z = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}$ &
-\includegraphics[width=0.2\textwidth]{figures/pauli_z.pdf} &
+\raisebox{-.3\height}{\includegraphics[width=0.2\textwidth]{figures/pauli_z.pdf}} &
 \begin{tabular}{|c||c||c|}
 \hline
 Fall & $|q\rangle$ & $Z|q\rangle$ \\
@@ -68,7 +68,7 @@ Fall & $|q\rangle$ & $Z|q\rangle$ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 $H = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ &
-\includegraphics[width=0.2\textwidth]{figures/hadamard.pdf} &
+\raisebox{-.3\height}{\includegraphics[width=0.2\textwidth]{figures/hadamard.pdf}} &
 \begin{tabular}{|c||c||c|}
 \hline
 Fall & $|q\rangle$ & $H|q\rangle$ \\
@@ -81,7 +81,7 @@ Fall & $|q\rangle$ & $H|q\rangle$ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 $S = \begin{bmatrix} 1 & 0 \\ 0 & i \end{bmatrix}$ &
-\includegraphics[width=0.2\textwidth]{figures/phase.pdf} &
+\raisebox{-.3\height}{\includegraphics[width=0.2\textwidth]{figures/phase.pdf}} &
 \begin{tabular}{|c||c||c|}
 \hline
 Fall & $|q\rangle$ & $S|q\rangle$ \\
@@ -94,7 +94,7 @@ Fall & $|q\rangle$ & $S|q\rangle$ \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 $T = \begin{bmatrix} 1 & 0 \\ 0 & e^{i\frac{\pi}{4}} \end{bmatrix}$ &
-\includegraphics[width=0.2\textwidth]{figures/t_dagger.pdf} &
+\raisebox{-.3\height}{\includegraphics[width=0.2\textwidth]{figures/t_dagger.pdf}} &
 \begin{tabular}{|c||c||c|}
 \hline
 Fall & $|q\rangle$ & $T|q\rangle$ \\
@@ -119,4 +119,93 @@ Das $U$-Gatter erm\"oglicht die Spezifizierung jeglicher Gatter, z.B. kann das H
 \begin{equation}
 U\left(\theta= \frac{\pi}{2}, \phi=0, \lambda=\pi\right) = H .
 \end{equation}
-Somit kann es eine gro\ss e Menge an n\"utzlichen Gattern geben, die auf 1-Qubit operieren.
+Somit kann es eine gro\ss e Menge an n\"utzlichen Gattern geben, die auf einem Qubit operieren. Jedoch ist es m\"oglich diese Gatter auch auf meheren Qubits operieren zu lassen. Diese Gatter werden dann kontrollierte Gatte gennant, da diese ein oder mehrere kontrollierende \textit{(control)} Qubits und ein Ziel Qubit \textit{(target)} beinhalten. Tabelle \ref{table:2Qubit-Gatter} zeigt oft genutzte Gatter die auf mehr als einem Qubit operieren.
+%%%%%%%%%%%%%%%%%%%%%%%Table Multi%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[h]
+\hspace{-1cm}
+\begin{tabular}{c|c|c}
+\hline 
+Matrix & Schaltungssymbol & Wahrheitstabelle \\
+\hline & \\
+$CX_{01} = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \end{bmatrix}$ &
+\raisebox{-.5\height}{\includegraphics[width=0.16\textwidth]{figures/cnot.pdf}} &
+\begin{tabular}{|c||c||c|}
+\hline
+Fall & $|q_0 q_1\rangle$ & $CX_{01}|q_0 q_1\rangle$ \\
+\hline \hline 
+1 & $|00\rangle$ & $|00\rangle$ \\
+2 & $|01\rangle$ & $|01\rangle$ \\
+3 & $|10\rangle$ & $|11\rangle$ \\
+4 & $|11\rangle$ & $|10\rangle$ \\
+\hline
+\end{tabular} \\&\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$CZ_{01} = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & -1 \end{bmatrix}$ &
+\raisebox{-.5\height}{\includegraphics[width=0.2\textwidth]{figures/cz.pdf}} &
+\begin{tabular}{|c||c||c|}
+\hline
+Fall & $|q_0 q_1\rangle$ & $CZ_{01}|q_0 q_1\rangle$ \\
+\hline \hline 
+1 & $|00\rangle$ & $|00\rangle$ \\
+2 & $|01\rangle$ & $|01\rangle$ \\
+3 & $|10\rangle$ & $|10\rangle$ \\
+4 & $|11\rangle$ & $-|11\rangle$ \\
+\hline
+\end{tabular} \\&\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$SWAP = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$ &
+\raisebox{-.5\height}{\includegraphics[width=0.16\textwidth]{figures/swap.pdf}} &
+\begin{tabular}{|c||c||c|}
+\hline
+Fall & $|q_0 q_1\rangle$ & $SWAP|q_0 q_1\rangle$ \\
+\hline \hline 
+1 & $|00\rangle$ & $|00\rangle$ \\
+2 & $|01\rangle$ & $|10\rangle$ \\
+3 & $|10\rangle$ & $|01\rangle$ \\
+4 & $|11\rangle$ & $|11\rangle$ \\
+\hline
+\end{tabular} \\&\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$CCX_{012} = \begin{bmatrix} I_2 & 0_2 & 0_2 & 0_2 \\ 0_2 & I_2 & 0_2 & 0_2 \\ 0_2 & 0_2 & I_2 & 0_2 \\ 0_2 & 0_2 & 0_2 & X \end{bmatrix}$ &
+\raisebox{-.5\height}{\includegraphics[width=0.16\textwidth]{figures/toffoli.pdf}} &
+\begin{tabular}{|c||c||c|}
+\hline
+Fall & $|q_0 q_1 q_2 \rangle$ & $CCX_{012}|q_0 q_1 q_2\rangle$ \\
+\hline \hline 
+1 & $|000\rangle$ & $|000\rangle$ \\
+2 & $|001\rangle$ & $|001\rangle$ \\
+3 & $|010\rangle$ & $|010\rangle$ \\
+4 & $|011\rangle$ & $|011\rangle$ \\
+5 & $|100\rangle$ & $|100\rangle$ \\
+6 & $|101\rangle$ & $|101\rangle$ \\
+7 & $|110\rangle$ & $|111\rangle$ \\
+8 & $|111\rangle$ & $|110\rangle$ \\
+\hline
+\end{tabular} \\&\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$CS_{10} = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & e^{i\phi} \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{bmatrix}$ &
+\raisebox{-.5\height}{\includegraphics[width=0.2\textwidth]{figures/cs.pdf}} &
+\begin{tabular}{|c||c||c|}
+\hline
+Fall & $|q_0 q_1\rangle$ & $CS_{10}|q_0 q_1\rangle$ \\
+\hline \hline 
+1 & $|00\rangle$ & $|00\rangle$ \\
+2 & $|01\rangle$ & $|01\rangle$ \\
+3 & $|10\rangle$ & $|10\rangle$ \\
+4 & $|11\rangle$ & $i|11\rangle$ \\
+\hline
+\end{tabular} \\&\\
+\hline
+\end{tabular}
+\caption{Ausgew\"ahlte 2-, 3-Quanten Gatter}
+\label{table:2Qubit-Gatter}
+\end{table}

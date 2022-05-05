@@ -1,7 +1,7 @@
 #
 # File:   qasm2circ/README
 # Date:   23-Mar-04
-# Author: I. Chuang <ichuang@mit.edu>
+# Author: I. Chuang <ichuang@mit.edu>, T. Grautstück
 #
 # 23-mar-04: qasm2circ package Version 1.0
 # 24-mar-04: qasm2circ package Version 1.1
@@ -31,8 +31,9 @@ REQUIREMENTS:
 -----------------------------------------------------------------------------
 USAGE:
 
-qasm2pdf <qasmfile>
-qasm2png <qasmfile>
+qasm2pdf <qasmfile> -> csh
+qasm2png <qasmfile> 
+qasmtopdf <qasmfile> -> bash, produces /output dir
 
 Example: qasm2pdf test2.qasm
 
