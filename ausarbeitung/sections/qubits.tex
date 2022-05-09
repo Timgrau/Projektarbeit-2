@@ -1,5 +1,5 @@
 Viele Jahre wissenschaftlicher und technologischer Fortschritt haben zur Entwicklung des Quantenbits, kurz \textit{Qubit} beigetragen. Genau wie das klassische Bit, die kleinste Ma\ss einheit zur Darstellung von Informationsgehalt, kann auch das Quantenbit die Zust\"ande 1 und 0 annehmen. Wesentlicher Unterschied zu einem klassischen Bit ist, dass es sich bei einem Qubit um ein Zweizustandssystem handelt, d.h. es kann sich zu einer gewissen Wahrscheinlichkeit in einem dieser beiden Zust\"ande 1 oder 0 befinden. Hierbei ist wichtig, dass der Zustand dieses Quantenbits nur dann in Erfahren gebracht werden kann, indem es gemessen wird.\\
-Um den Zustand eines Qubits darzustellen werden Zustandsvektoren genutzt, die den Wert ihrer L\"ange repr\"asentieren. Um diese Zust\"ande mathematisch zu veranschaulichen wird die so genannte Dirac Noation $|\rangle$ genutzt, dies ist die standard Notation, um in der Quantenmechanik Zust\"ande darzustellen.
+Um den Zustand eines Qubits darzustellen werden Zustandsvektoren genutzt. Um diese Zust\"ande mathematisch zu veranschaulichen wird die so genannte Dirac Noation $|\rangle$ genutzt, dies ist die standard Notation, um in der Quantenmechanik Zust\"ande darzustellen.
 \begin{equation} \label{eqn:first}
         |0\rangle = \begin{bmatrix}
         1 \\
@@ -11,7 +11,7 @@ Um den Zustand eines Qubits darzustellen werden Zustandsvektoren genutzt, die de
         1 \\
         \end{bmatrix}
 \end{equation}
-Somit zeigt \ref{eqn:first} die Basiszust\"ande \textit{(Computational basis state)} $|0\rangle$ und $|1\rangle$, welche eine orthogonale Basis bilden \cite{nielsen_chuang_2010}. Es ist jedoch m\"oglich, dass sich ein Quantenbit in einem Zustand befindet, der sich von diesen beiden unterscheidet.
+Somit zeigt \ref{eqn:first} die Basiszust\"ande \textit{(Computational basis state)} $|0\rangle$ und $|1\rangle$, welche eine orthogonale Basis bilden \cite{nielsen_chuang_2010}. Es ist jedoch auch m\"oglich, dass sich ein Quantenbit in einem Zustand befindet, der sich von diesen beiden unterscheidet.
 \begin{equation}\label{eqn:superposition}
 \begin{gathered}
         |\psi\rangle = \alpha |0\rangle+\beta |1\rangle = \begin{bmatrix}
@@ -20,8 +20,8 @@ Somit zeigt \ref{eqn:first} die Basiszust\"ande \textit{(Computational basis sta
         \end{bmatrix} \qquad \alpha, \beta \in \mathbf{C}
         \end{gathered}
 \end{equation}
-Das hei\ss t auch Linearkombinationen k\"onnen aus diesen Zust\"anden gebildet werden \ref{eqn:superposition}, dies wird als Superpostion oder auch \"Uberlagerung bezeichnet, $\alpha$ und $\beta$ sind die Amplituden des Zustands. \\
-Um zu erfahren, zu welcher Wahrscheinlichkeit sich ein Quantenbit in einem bestimmten Zustand befindet, muss das Qubit gemessen werden. F\"ur den Zustandsvektor $|\psi\rangle$ erh\"alt man somit nach seiner Messung, mit der Wahrscheinlichkeit $|\alpha|^2$ das Ergebnis 0 und der Wahrscheinlichkeit $|\beta|^2$ das Ergebnis 1.
+Das hei\ss t auch Linearkombinationen k\"onnen aus diesen Zust\"anden gebildet werden \ref{eqn:superposition}. Dies wird als Superpostion oder auch \"Uberlagerung bezeichnet, wobei $\alpha$ und $\beta$ die Amplituden des Zustands $|\psi\rangle$ darstellen. \\
+Um zu Erfahren, zu welcher Wahrscheinlichkeit sich ein Quantenbit in einem bestimmten Zustand befindet, muss das Qubit gemessen werden. F\"ur den Zustandsvektor $|\psi\rangle$ erh\"alt man somit nach der Messung, mit der Wahrscheinlichkeit $|\alpha|^2$ das Ergebnis 0. Und mit der Wahrscheinlichkeit $|\beta|^2$ das Ergebnis 1.
 \begin{equation}\label{eqn:messung}
         \begin{gathered}
                 p(|0\rangle) = |\langle 0|\psi \rangle|^2 \\
@@ -29,14 +29,14 @@ Um zu erfahren, zu welcher Wahrscheinlichkeit sich ein Quantenbit in einem besti
                 = | \alpha |^2
         \end{gathered}       
 \end{equation}
-Die Messung wird durchgef\"uhrt, indem das Innereprodukt \"uber den Zustandsvektor und den zugeh\"origen Basiszustand gebildet und quadriert wird \ref{eqn:messung}. Um eine Wahrscheinlichkeit von 1 zu gew\"ahrleisten, muss der Zustandsvektor normalisiert sein. Somit muss auch \ref{eqn:normalisierung} f\"ur den Zustandsvektor gelten.
+Die Messung wird durchgef\"uhrt, indem das Innereprodukt \"uber den Zustandsvektor und den zugeh\"origen Basiszustand gebildet und quadriert wird \ref{eqn:messung}. Um eine Wahrscheinlichkeit von 1 zu gew\"ahrleisten, muss der Zustandsvektor normalisiert sein. Somit muss \ref{eqn:normalisierung} f\"ur den Zustandsvektor gelten.
 \begin{equation}\label{eqn:normalisierung}
 \begin{gathered}
          \langle \psi | \psi \rangle = 1 \\
          \Rightarrow |\alpha|^2 +|\beta|^2 = 1
 \end{gathered}
 \end{equation}
-Vor der Messung eines Qubits kann es sich in einem Kontinuum an Zust\"anden zwischen $|0\rangle$ und $|1\rangle$ befinden \cite{nielsen_chuang_2010}. Das erm\"oglicht einem Quantenbit sich in den Zust\"anden $|0\rangle$ und $|1\rangle$ gleichzeitig zu befinden, auf diesen Zustandsvektor wird oft zur\"uckgegriffen, \ref{eqn:+state} soll diesen verdeutlichen.
+Vor der Messung eines Qubits kann es sich in einem Kontinuum an Zust\"anden zwischen $|0\rangle$ und $|1\rangle$ befinden \cite{nielsen_chuang_2010}. Das erm\"oglicht einem Quantenbit sich in den Zust\"anden $|0\rangle$ und $|1\rangle$ gleichzeitig zu befinden. Auf diesen Zustandsvektor wird oft zur\"uckgegriffen, \ref{eqn:+state} soll diesen verdeutlichen.
 \begin{equation}\label{eqn:+state}
 |+\rangle = \frac{1}{\sqrt{2}}|0\rangle+\frac{1}{\sqrt{2}}|1\rangle
 \end{equation}
@@ -53,4 +53,4 @@ Zustandsvektor $|+\rangle$ l\"asst sich somit durch $\phi= 0$ und $\theta = \fra
 \caption{Darstellung von Quantenbits innerhalb der Bloch-Kugel}
 \label{fig:Bloch-Kugel}
 \end{figure}
-Da die Bloch-Kugel ein Unterraum des Hilbertraums ist und jede Linearkombination zul\"assiger Vektoren innerhalb dieses Unterraums, wieder einen zul\"assigen Vektor bilden, gibt es unendlich viele Punkte auf der Bloch-Kugel.
+Die Bloch-Kugel ist ein Unterraum des Hilbertraums. Jede Linearkombination zul\"assiger Vektoren innerhalb dieses Unterraums bilden wieder einen zul\"assigen Vektor, daher gibt es unendlich viele Punkte auf der Bloch-Kugel.
