@@ -61,7 +61,7 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 %%%
 %%% packages
 %%%
-
+\usepackage{minted}
 %%%
 %%% encoding and language set
 %%%
@@ -97,7 +97,6 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 
 %% Tikz packages
 \usepackage{tikz}
-
 \usepackage{breqn}
 \usepackage{afterpage,lscape}
 \usepackage[font=small]{caption}
@@ -533,6 +532,7 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Programmierung von Quantencomputer}
+
 \input{sections/programming-qc.tex}
 
 \section{Software und Programmiersprachen}
@@ -541,7 +541,9 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 \section{Simualtion}
 \input{sections/simulation.tex}
 
+
 \section{Verfügbare Hardware}
+
 \lipsum[1-4]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -622,8 +624,8 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 
 
 \chapter{Anhang}
-
-\lipsum[2]
+\label{chap:anhang}
+\input{sections/code-anhang.tex}
 
 
 %\afterpage{\blankpage}
