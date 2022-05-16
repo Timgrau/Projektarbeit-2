@@ -1,0 +1,12 @@
+Die Quanten Fourier-Transformation (QFT), transformiert einen Basiszustand $|x\rangle$ zu einem Fourierzustand $|\tilde{x}\rangle$ \cite{Qiskit-Textbook}. Die QFT ist die Anwendung der Diskreten Fourier-Transformation (DFT) auf Quantenzust\"ande, somit unterscheidet diese sich minimal zur Berechnung von Fourierkoeffizienten mittels DFT.
+\begin{equation}
+  \begin{aligned}
+    DFT &\Rightarrow X[k] = \frac{1}{\sqrt{N}}\sum\limits_{j=0}^{N-1}e^{-i\frac{2\pi}{N}kj}\cdot x[j] \\[1em]
+    QFT &\Rightarrow |\tilde{x}\rangle = \frac{1}{\sqrt{N}}\sum\limits_{j=0}^{N-1}e^{-i\frac{2\pi}{N}xj}\cdot|j\rangle
+  \end{aligned}
+\end{equation}
+Die Berechnung der QFT kann somit auf ein Quantenregister \ref{sec:multiple-qubits} ausgef\"uhrt werden. Bei der Quantum Fourier-Transformation entspricht $N = 2^n$, dabei ist $n$ die Anzahl der genutzten Qubits. Es ist m\"oglich die QFT als Produkt auszuschreiben.
+\begin{equation}
+  |\tilde{x}\rangle = \frac{1}{\sqrt{N}} \left(|0\rangle + e^{-i\frac{2\pi x}{2^1}}|1\rangle\right)\otimes\left(|0\rangle + e^{-i\frac{2\pi x}{2^2}}|1\rangle\right)\otimes\dots\otimes\left(|0\rangle + e^{-i\frac{2\pi x}{2^n}}|1\rangle\right)
+\end{equation}
+Die einfachste
