@@ -1,0 +1,121 @@
+% 
+% File:   QPE.qasm
+% Date:   17-05-22
+% Author: T. Grautstück
+%
+% QPE
+%
+% 	def	U0,1,'U^{2^0}'
+% 	def	U1,1,'U^{2^1}'
+% 	def	U2,1,'U^{2^2}'
+% 	def	Ut,1,'U^{2^{t-1}}'
+% 	defbox	qft,5,0,'QFT^{\dagger}'
+% 	
+% 	qubit 	q0,0
+% 	qubit 	q1,0
+% 	qubit 	q2,0
+% 	qubit	qn
+% 	qubit 	q_t,0
+% 
+% 	qubit	\psi
+% 	
+% 	h	q0
+% 	h	q1
+% 	h	q2
+% 	h	q_t
+% 
+% 	U0	q_t,\psi
+% 	U1	q2,\psi
+% 	U2	q1,\psi
+% 	Ut	q0,\psi
+% 	qft	q0,q1,q2,qn,q_t
+% 
+% 	measure q0
+% 	measure q1
+% 	measure q2
+% 	measure	q_t
+%  Time 01:
+%    Gate 00 h(q0)
+%    Gate 01 h(q1)
+%    Gate 02 h(q2)
+%    Gate 03 h(q_t)
+%  Time 02:
+%    Gate 04 U0(q_t,\psi)
+%  Time 03:
+%    Gate 05 U1(q2,\psi)
+%  Time 04:
+%    Gate 06 U2(q1,\psi)
+%  Time 05:
+%    Gate 07 Ut(q0,\psi)
+%  Time 06:
+%    Gate 08 qft(q0,q1,q2,qn,q_t)
+%  Time 07:
+%    Gate 09 measure(q0)
+%    Gate 10 measure(q1)
+%    Gate 11 measure(q2)
+%    Gate 12 measure(q_t)
+
+% Qubit circuit matrix:
+%
+% q0: gAxA, n  , n  , n  , gExA, gFxA, gGxA, N  
+% q1: gAxB, n  , n  , gDxB, n  , gFxB, gGxB, N  
+% q2: gAxC, n  , gCxC, n  , n  , gFxC, gGxC, N  
+% qn: n  , n  , n  , n  , n  , gFxD, n  , n  
+% q_t: gAxE, gBxE, n  , n  , n  , gFxE, gGxE, N  
+% \psi: n  , gBxF, gCxF, gDxF, gExF, n  , n  , n  
+
+\documentclass[11pt]{article}
+\input{xyqcirc.tex}
+
+% definitions for the circuit elements
+
+\def\gAxA{\op{H}\w\A{gAxA}}
+\def\gAxB{\op{H}\w\A{gAxB}}
+\def\gAxC{\op{H}\w\A{gAxC}}
+\def\gAxE{\op{H}\w\A{gAxE}}
+\def\gBxE{\b\w\A{gBxE}}
+\def\gBxF{\op{U^{2^0}}\w\A{gBxF}}
+\def\gCxC{\b\w\A{gCxC}}
+\def\gCxF{\op{U^{2^1}}\w\A{gCxF}}
+\def\gDxB{\b\w\A{gDxB}}
+\def\gDxF{\op{U^{2^2}}\w\A{gDxF}}
+\def\gExA{\b\w\A{gExA}}
+\def\gExF{\op{U^{2^{t-1}}}\w\A{gExF}}
+\def\gFxA{\gnqubit{QFT^{\dagger}}{dddd}\w\A{gFxA}}
+\def\gFxB{\gspace{QFT^{\dagger}}\w\A{gFxB}}
+\def\gFxC{\gspace{QFT^{\dagger}}\w\A{gFxC}}
+\def\gFxD{\gspace{QFT^{\dagger}}\dots\A{gFxD}}
+\def\gFxE{\gspace{QFT^{\dagger}}\w\A{gFxE}}
+\def\gGxA{\meter\w\A{gGxA}}
+\def\gGxB{\meter\w\A{gGxB}}
+\def\gGxC{\meter\w\A{gGxC}}
+\def\gGxE{\meter\w\A{gGxE}}
+
+% definitions for bit labels and initial states
+
+\def\bA{\qv{q_{0}}{0}}
+\def\bB{\qv{q_{1}}{0}}
+\def\bC{\qv{q_{2}}{0}}
+\def\bD{ \q{qn}}
+\def\bE{\qv{q_t}{0}}
+\def\bF{ \q{\psi}}
+
+% The quantum circuit as an xymatrix
+
+\xymatrix@R=5pt@C=10pt{
+    \bA & \gAxA &\n   &\n   &\n   &\hspace{-0.4cm}\dots&\gExA &\gFxA &\gGxA &\N  
+\\  \bB & \gAxB &\n   &\n   &\gDxB &\hspace{-0.4cm}\dots &\n   &\gFxB &\gGxB &\N  
+\\  \bC & \gAxC &\n   &\gCxC &\n &\hspace{-0.4cm}\dots  &\n   &\gFxC &\gGxC &\N  
+\\  \vdots &    &   &   & &\hspace{-0.4cm}\dots &   &\gFxD &\vdots &  
+\\  \bE & \gAxE &\gBxE &\n   &\n &\hspace{-0.4cm}\dots  &\n   &\gFxE &\gGxE &\N  
+\\  \bF & \n   &\gBxF &\gCxF &\gDxF &\hspace{-0.3cm}\dots &\gExF &\n   &\n   &\n  
+%
+% Vertical lines and other post-xymatrix latex
+%
+\ar@{-}"gBxF";"gBxE"
+\ar@{-}"gCxF";"gCxC"
+\ar@{-}"gDxF";"gDxB"
+\ar@{-}"gExF";"gExA"
+}
+
+\end{document}
