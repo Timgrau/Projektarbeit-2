@@ -1,3 +1,4 @@
 qutip
 matplotlib
 jupyter
+qiskit

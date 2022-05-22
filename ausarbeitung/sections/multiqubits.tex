@@ -1,5 +1,5 @@
-Um Algorithmen oder aufwendige Berechnungen auf Quantencomputern auszuf\"uhren wird mehr als nur ein Qubit bzw. ein Bit an Information ben\"ontigt. Daher ist es wichtig zu verstehen, wie einzelne Qubits miteinander Interagieren, sich zusammenf\"ugen lassen und durch Vektoren beschrieben werden. \\\\
-Das Kronecker-Produkt wird genutzt um Qubits Zusammenzuf\"uhren, bzw. deren kollektiven Zustand zu bilden. \ref{eqn:kollektiver-Zustand} zeigt zwei m\"ogliche kollektive Zust\"ande der Basiszust\"ande aus \ref{eqn:first}.
+Um Algorithmen oder aufwendige Berechnungen auf Quantencomputern auszuf\"uhren wird mehr als nur ein Qubit bzw. ein Bit an Information ben\"ontigt. Daher ist es wichtig zu verstehen, wie einzelne Qubits miteinander interagieren, sich zusammenf\"ugen lassen und durch Vektoren beschrieben werden. \\\\
+Das Kronecker-Produkt wird genutzt um Qubits zusammenzuf\"uhren, bzw. deren kollektiven Zustand zu bilden. \ref{eqn:kollektiver-Zustand} zeigt zwei m\"ogliche kollektive Zust\"ande der Basiszust\"ande aus \ref{eqn:first}.
 \begin{equation}\label{eqn:kollektiver-Zustand}
 \begin{aligned}
   |0\rangle\otimes |1\rangle = |01\rangle = \begin{bmatrix}1 \times \begin{bmatrix} 0\\1\end{bmatrix}\\[1em] 0 \times \begin{bmatrix} 0\\1\end{bmatrix}\end{bmatrix} = \begin{bmatrix} 0 \\ 1 \\ 0 \\ 0\end{bmatrix} \\[1em]
@@ -16,7 +16,7 @@ Das hei\ss t auch dieser Zustand muss durch seine Amplituden normalisiert sein, 
 \begin{equation}
 |\alpha_{00}|^2+|\alpha_{01}|^2+|\alpha_{10}|^2+|\alpha_{11}|^2 = 1 .
 \end{equation}
-Ebenso werden die Qubits wie in \ref{eqn:messung} dargestellt gemessen. Um z.B. die Wahrscheinlichkeit zu erfahren, das sich der Zustand $|\psi \rangle$ in Zustand $|11\rangle$ befindet wird folgende Messung durchgef\"uhrt
+Ebenso werden die Qubits wie in \ref{eqn:messung} dargestellt gemessen. Um z.B. die Wahrscheinlichkeit zu erfahren, dass sich der Zustand $|\psi \rangle$ in Zustand $|11\rangle$ befindet wird folgende Messung durchgef\"uhrt
 \begin{equation}
 p(|11\rangle) = |\langle 11| \psi  \rangle|^2 = |\alpha_{11}|^2.
 \end{equation}

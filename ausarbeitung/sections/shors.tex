@@ -1,0 +1,29 @@
+Der Shors Algorithmus ist ein randomisierter Algorithmus, dieser besteht aus einem klassischen Teil und einem Quantenteil \cite{Shor_1997}. Der klassische Teil dieses Algorithmus nutzt modulare Arithmetik und dient zur Vorbereitung der Ordnungsfindung f\"ur den Quantenteil.\\
+Um eine Fastprimzahl $N = p\cdot q$ mit dem Shors Algorithmus zu faktorisieren werden folgende Schritte durchgef\"uhrt.
+\begin{itemize}
+  \item[1.] Finde eine zuf\"allige Zahl \textit{(seed number)} $a < N$ die Teilerfremd zu $N$ ist.
+  \item[2.] Finde die Periode/Ordnung $r \neq 0$ der Funktion $$f_{a,N}(x) = a^x \mod N$$
+  \item[3.] Faktorisiere $N$ 
+\end{itemize}
+Die \"Uberpr\"ufung im ersten Schritt kann klassisch durch den euklidischen Algorithmus gel\"ost werden. Hier muss gelten $ggT(a,N) = 1$. Teilt $a$ schon $N$, dann wurde ein Faktor von $N$ gefunden.\\ Dies ist f\"ur Zahlen mit einer l\"ange von 4096 Bits jedoch ziemlich unwahrscheinlich. Aus diesem Grund muss in Schritt zwei die Periode der Funktion berechnet werden, sodass gilt $f_{a,N}(s+r) = f_{a,N}(s)$. Eine M\"oglichkeit dieses Problem auf einem klassischen Computer zu l\"osen, w\"are $x$ solange zu erh\"ohen bis $a^x \equiv 1 \mod N$ ist. Somit ist $x = r$, denn $a^0 \equiv 1 \mod N$ d.h. es wurde eine Periode durchlaufen.\\\\Da dies f\"ur gro\ss e Zahlen jedoch ziemlich uneffizient ist, lag die Idee bei Shor darin die Quanten-Phasensch\"atzung auf die folgende unit\"are Transformation anzuwenden. 
+\begin{equation}
+  U|y\rangle = |xy \mod N \rangle
+\end{equation}
+In \cite[p.~196~ff.]{hundt_2022} wird anschaulich dargestellt, warum der Eigenwert von $U$ die $r$-ten Wurzel der Einheit \textit{(roots of unity)} ist und somit die Ordnung $r$ aus der Phase des Eigenvektors mittels inverser Quanten Fourier-Transformation extrahiert werden kann. \\
+Wurde diese Ordnung $r$ gefunden kann der 3. Schritt erfolgen. Ist $r$ ungerade muss der Algorithmus erneut von Schritt eins mit einem anderen $a$ durchgef\"uhrt werden. Ist $r$ jedoch gerade k\"onnen die Faktoren von $N$ durch \ref{eqn:factors} bestimmt werden \cite{hundt_2022}.
+\begin{equation}
+  \label{eqn:factors}
+  \begin{aligned}
+  q = ggT(N, a^{r/2}+1) \\
+  p = ggT(N, a^{r/2}-1)
+  \end{aligned}
+\end{equation}
+Diese Berechnung der Faktoren entsteht durch die Annahme, dass es eine Zahl $x \neq \pm 1$ und $x < N$ gibt, die kongruent 1 Modulo N ist.
+\begin{equation}
+  \label{eqn:zero}
+x^2-1 \equiv 0 \mod N \iff (x+1)(x-1) \equiv 0 \mod N
+\end{equation}
+Die selbe Herrangehensweise kann auch auf die gefundene gerade Ordnung $r$ angewendet werden.
+\begin{equation}
+  \left(a^{r/2}\right)^2 \equiv 1 \mod N
+\end{equation}
