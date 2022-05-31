@@ -1,3 +1,4 @@
+
 \documentclass[compress,aspectratio=1610]{beamer}
 
 \usepackage[ngerman]{babel}
@@ -58,9 +59,9 @@
   \hfill
   \begin{minipage}{0.3\textwidth}
     \begin{figure}[h]
-    \centering
-    \includegraphics[width=1\textwidth]{figures/Peter_Shor_2017.png}
-    \caption{Peter Shor 2017}
+      \centering
+      \includegraphics[width=1\textwidth]{figures/Peter_Shor_2017.png}
+      \caption{Peter Shor 2017}
     \end{figure}
   \end{minipage}
   \vfill
@@ -163,26 +164,26 @@
 \end{frame}
 
 \begin{frame}{Quantengatter I}
-    \begin{itemize}
-    \item Manipulation von Qubits
-    \item Quantengatter die auf $n$ Bits operieren sind unit\"are $2^n\times 2^n$-Matrizen
-    \item Für diese Matrizen existieren Eigenvektoren 
-    \end{itemize}
-    \begin{minipage}{0.45\textwidth}
-      \begin{block}{Unit\"ar}
-        \begin{equation}\nonumber
-          \boxed{I = A^{\dagger}A} \qquad A^{\dagger} = A^{\ast T}
-        \end{equation}
-      \end{block}
-      \begin{block}{Eigenvektor \& Eigenwert}
-        $$A|\psi\rangle = \lambda |\psi\rangle = e^{2\pi i \theta}|\psi\rangle$$
-      \end{block}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.45\textwidth}
-      \begin{block}{Beispiel: X- \& H-Gatter}
-        \begin{equation}\nonumber
-          \begin{aligned}
+  \begin{itemize}
+  \item Manipulation von Qubits
+  \item Quantengatter die auf $n$ Bits operieren sind unit\"are $2^n\times 2^n$-Matrizen
+  \item Für diese Matrizen existieren Eigenvektoren 
+  \end{itemize}
+  \begin{minipage}{0.45\textwidth}
+    \begin{block}{Unit\"ar}
+      \begin{equation}\nonumber
+        \boxed{I = A^{\dagger}A} \qquad A^{\dagger} = A^{\ast T}
+      \end{equation}
+    \end{block}
+    \begin{block}{Eigenvektor \& Eigenwert}
+      $$A|\psi\rangle = \lambda |\psi\rangle = e^{2\pi i \theta}|\psi\rangle$$
+    \end{block}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.45\textwidth}
+    \begin{block}{Beispiel: X- \& H-Gatter}
+      \begin{equation}\nonumber
+        \begin{aligned}
           X &= |0\rangle\langle1|+|1\rangle\langle0| =
           \begin{bmatrix}
             0 & 1 \\
@@ -193,10 +194,10 @@
             1 & 1 \\
             1 & -1
           \end{bmatrix}
-          \end{aligned}
-        \end{equation}
-      \end{block}
-    \end{minipage}
+        \end{aligned}
+      \end{equation}
+    \end{block}
+  \end{minipage}
 \end{frame}
 
 \begin{frame}{Quantengatter II - \textit{(Pauligatter)}}
@@ -253,7 +254,7 @@
     \item Alle Gatter k\"onnen kontrolliert auf $n$ Qubits angewandt werden
     \item Ein Zielqubit und $n-1$ kontrollierende Qubits
     \item Um eine Transformation auf einem Zielbit auszuf\"uhren, m\"ussen sich alle kontrollierenden Bits im Zustand $|1\rangle$ befinden
-  \end{itemize}
+    \end{itemize}
   \end{minipage}
   \hfill
   \begin{minipage}{0.3\textwidth}
@@ -302,14 +303,14 @@
     \end{tabular}
     \caption{Toffoli-Gatter}
     \label{table:2Qubit-Gatter}
-\end{table}
+  \end{table}
 \end{frame}
 
 \begin{frame}{Quantenschaltungen}
   \begin{itemize}
   \item Grundlage f\"ur Quantenalgorithmen
   \item Keine R\"uckf\"uhrungen (azyklisch)
-  \item Kopieren und Zusammenf\"uhren von Qubits nicht erlaubt
+  \item Kopieren und Zusammenf\"uhren von Qubits ist nicht erlaubt
   \end{itemize}
   \begin{figure}[h]
     \centering
@@ -319,27 +320,151 @@
 \end{frame}
 
 \section{Werkzeuge zur Implementierung}
-\begin{frame}{Frametitle II}
-  \begin{figure}[!h]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/computer_problems.png}
-  \end{figure}
-\end{frame}
-\begin{frame}
-   Your text here \dots
-\end{frame}
-\begin{frame}
-  Your text here \dots
+\begin{frame}{Werkzeuge}
+  \begin{itemize}
+  \item IBM Quantum Composer
+    \begin{itemize}
+    \item Halbaddierer bauen
+    \item Hardware 
+    \item Quantum Lab
+    \end{itemize}
+  \item Qiskit
+  \end{itemize}
 \end{frame}
 
 \section{Quantenalgorithmen}
-\begin{frame}{The End}
-  \begin{center}
-    Thank you for your attention, are there any questions?
-  \end{center}
+\begin{frame}{Quanten Fourier-Transformation I}
+  \begin{itemize}
+  \item Wird in vielen anderen Algorithmen genutzt z.B. Shor's
+  \item Transformiert einen Basiszustand $|x\rangle$ zu einem Fourierzustand $|\tilde{x}\rangle$
+  \item $N = 2^n$; $n$ ist die Anzahl der genutzten Qubits
+  \end{itemize}
+  \begin{block}{QFT}
+    $$QFT \Rightarrow |\tilde{x}\rangle = \frac{1}{\sqrt{N}}\sum\limits_{j=0}^{N-1}e^{i\frac{2\pi}{N}xj}\cdot|j\rangle$$
+  \end{block}
+  \begin{block}{Als Produkt - \textit{(siehe \cite{Qiskit-Textbook})}}
+    $$|\tilde{x}\rangle = \frac{1}{\sqrt{N}} \left(|0\rangle + e^{i\frac{2\pi x}{2^1}}|1\rangle\right)\otimes\left(|0\rangle + e^{i\frac{2\pi x}{2^2}}|1\rangle\right)\otimes\dots\otimes\left(|0\rangle + e^{i\frac{2\pi x}{2^n}}|1\rangle\right)$$
+  \end{block}
 \end{frame}
 
+\begin{frame}{Quanten Fourier-Transformation II}
+  \begin{block}{kontrollierte Rotation \cite{Qiskit-Textbook}}
+    $$R_k =
+    \begin{bmatrix}
+      1 & 0 \\
+      0 & e^{i\frac{2\pi}{2^k}}
+    \end{bmatrix}$$
+  \end{block}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{~/sciebo/Projektarbeit-2/ausarbeitung/figures/QFT.pdf}
+    \caption{Schaltung der Quantum Fourier-Transformation vgl. \cite{nielsen_chuang_2010}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Quanten-Phasenschätzung I}
+  \begin{minipage}{0.6\textwidth}
+    \begin{itemize}
+    \item Quantumteil des Shors Algorithmus
+    \item Operiert auf zwei Quantumregister
+    \item Nutzt Phasenr\"ucksto\ss \, \textit{(phase kickback)}, um die Phase eines unit\"aren Operators $U$ (im Fourierzustand) in ein Quantenregister zu schreiben \cite{Qiskit-Textbook}.
+    \end{itemize}
+  \end{minipage}
+  \begin{minipage}{0.35\textwidth}
+    \begin{block}{Eigenvektor}
+      $$U|\psi\rangle = e^{2\pi i\theta}|\psi\rangle$$
+      \begin{itemize}
+      \item QPE bestimmt $\theta$
+      \end{itemize}
+    \end{block}
+  \end{minipage}
+  \begin{block}{QPE - \textit{(siehe \cite{Qiskit-Textbook})}}
+    $$\frac{1}{\sqrt{2^t}}\sum\limits_{k=0}^{2^t-1}e^{2\pi i\theta k}|k\rangle = \frac{1}{\sqrt{2^t}} \left(|0\rangle+e^{2\pi i 2^{t-1}\theta}|1\rangle\right)\otimes\left(|0\rangle+e^{2\pi i 2^{t-2}\theta}|1\rangle\right)\otimes\dots\otimes\left(|0\rangle+e^{2\pi i 2^{0}\theta}|1\rangle\right)$$
+  \end{block}
+\end{frame}
+
+\begin{frame}{Quanten-Phasensch\"atzung II}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{~/sciebo/Projektarbeit-2/ausarbeitung/figures/QPE.pdf}
+    \caption{Schaltung der Quanten-Phasensch\"atzung vgl. \cite{nielsen_chuang_2010}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Quanten-Phasensch\"atzung III - \textit{(Beispiel)}}
+  \begin{itemize}
+  \item $t = 3$ Qubits
+  \end{itemize}
+  \begin{block}{Gatter}
+    $$U = P\left(\phi = \frac{\pi}{2}\right) =
+    \begin{bmatrix}
+      1 & 0 \\
+      0 & e^{\frac{i\pi}{2}}
+    \end{bmatrix}$$
+    $$P|1\rangle =
+    \begin{bmatrix}
+      1 & 0 \\
+      0 & e^{\frac{i\pi}{2}}
+    \end{bmatrix}
+    \begin{bmatrix}
+      0 \\ 1
+    \end{bmatrix} = e^{\frac{i\pi}{2}}|1\rangle$$
+  \end{block}
+  \begin{block}{Erwartung}
+    $$U|\psi\rangle = e^{2\pi i\theta}|\psi\rangle$$
+    \begin{itemize}
+    \item $\theta = \frac{1}{4}$
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\setbeamertemplate{headline}{}
 \section*{The End}
+\begin{frame}
+  \begin{center}
+    \vspace{-1cm}
+    \begin{tabular}{cccc}
+      \includegraphics[page=3, width=0.2\textwidth]{figures/End.pdf} &
+      \includegraphics[page=4, width=0.2\textwidth]{figures/End.pdf} &
+      \includegraphics[page=5, width=0.2\textwidth]{figures/End.pdf} &
+      \includegraphics[page=6, width=0.2\textwidth]{figures/End.pdf} \\
+
+      \includegraphics[page=7, width=0.2\textwidth]{figures/End.pdf} &
+      \includegraphics[page=8, width=0.2\textwidth]{figures/End.pdf} &
+      \includegraphics[page=9, width=0.2\textwidth]{figures/End.pdf} &
+      \includegraphics[page=10, width=0.2\textwidth]{figures/End.pdf} \\
+
+      \includegraphics[page=11, width=0.2\textwidth]{figures/End.pdf} &
+      \includegraphics[page=12, width=0.2\textwidth]{figures/End.pdf} &
+      \includegraphics[page=13, width=0.2\textwidth]{figures/End.pdf} &
+      \includegraphics[page=14, width=0.2\textwidth]{figures/End.pdf} \\
+
+      \includegraphics[page=15, width=0.2\textwidth]{figures/End.pdf} &
+      \includegraphics[page=16, width=0.2\textwidth]{figures/End.pdf} &
+      \includegraphics[page=17, width=0.2\textwidth]{figures/End.pdf} &
+      \includegraphics[page=18, width=0.2\textwidth]{figures/End.pdf} \\
+    \end{tabular}
+    \vspace{-0.2cm}
+    \begin{center}
+      Danke für die Aufmerksamkeit, gibt es Fragen?
+    \end{center}
+  \end{center}
+  %\setbeamertemplate{headline}{}
+\end{frame}
+\setbeamertemplate{headline}{%
+  \nointerlineskip%
+  \usebeamerfont{headline}%
+  \begin{beamercolorbox}[wd=\paperwidth,leftskip=1em,rightskip=1em,ht=2.5ex,dp=1ex]{headline}
+    {%
+      \setbeamercolor{math text}{parent=headline}%
+      \insertframetitle%
+      \ifx\insertframesubtitle\@empty%
+      \else%
+          {~~}\insertframesubtitle%
+          \fi%
+    }%
+  \end{beamercolorbox}%
+}
 \begin{frame}[allowframebreaks]
   \frametitle{Literaturverzeichnis}
   \bibliographystyle{ieeetr}
